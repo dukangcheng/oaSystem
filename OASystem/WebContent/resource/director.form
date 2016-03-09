@@ -1,0 +1,22 @@
+<table cellpadding="0" cellspacing="0" class="mainForm">
+   <tr>
+      <td width="100" class="label">申请人:</td>
+      <td name="userId">${userId}</td>
+   </tr>
+   <tr>
+      <td width="100">请假类型:</td>
+      <td name="leaveType">${leaveType}</td>
+   </tr>
+   <tr>
+      <td class="label" width="100">请假<font color="red">开始</font>时间:</tr>
+      <td name="startTime">${startTime}</td>
+   </tr>   
+   <tr>
+      <td class="label" width="100">请假<font color="red">结束</font>时间:</td>
+      <td name="endTime">${endTime}</td>
+   </tr>
+   <tr>
+      <td class="label" width="100" height="40px">请假原因:</td>
+      <td name="reason" height="40px">${reason}</td>
+   </tr>
+</table>

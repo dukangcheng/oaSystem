@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-2 20:00:36 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.web.oa.model.Orgnization" table="ORGNIZATION">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="sn" type="java.lang.String">
+            <column name="SN" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <many-to-one name="parent" class="com.web.oa.model.Orgnization">
+            <column name="parentId" />
+        </many-to-one>
+        <set name="children" table="ORGNIZATION" cascade="delete" order-by="id">
+            <key> <column name="parentId" /></key>
+            <one-to-many class="com.web.oa.model.Orgnization" />
+        </set>
+        <set name="users">
+           <key><column name="orgnizationId"></column></key>
+           <one-to-many class="com.web.oa.model.User"/>
+        </set>
+    </class>
+</hibernate-mapping>

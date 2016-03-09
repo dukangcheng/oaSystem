@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-1-11 20:32:11 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.web.oa.model.ApproveInfo" table="APPROVEINFO">
+		<id name="id">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		<property name="taskId">
+			<column name="taskId" />
+		</property>
+		<property name="afterTaskId">
+			<column name="afterTaskId" />
+		</property>
+		<property name="isAgree" type="java.lang.String">
+			<column name="isAgree" />
+		</property>
+		<property name="comment">
+			<column name="comment"></column>
+		</property>
+		<property name="processInstanceId" type="java.lang.String">
+			<column name="processInstanceId" />
+		</property>
+		<property name="processDefinitionId" type="java.lang.String">
+			<column name="processDefinitionId" />
+		</property>
+		<property name="userName" type="java.lang.String">
+			<column name="userName" />
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="createTime" />
+		</property>
+		<map name="properties" table="formProperty" cascade="all">
+			<key column="taskId"/>
+			<index column="propertyName" type="java.lang.String" />
+			<element column="propertyValue" type="java.lang.String" />
+		</map>
+	</class>
+</hibernate-mapping>

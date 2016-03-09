@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-12 17:22:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.web.oa.model.Forum" table="forum">
+        <id name="id">
+            <column name="id" />
+            <generator class="native"/>
+        </id>
+        <property name="title" type="java.lang.String">
+            <column name="title" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" />
+        </property>
+        <property name="postion" type="int">
+            <column name="postion" />
+        </property>
+        <set name="topics" table="topic" lazy="false" order-by="id">
+            <key>
+                <column name="forumId" />
+            </key>
+            <one-to-many class="com.web.oa.model.Topic"/>
+        </set>
+        <property name="topicCount" type="int">
+            <column name="topicCount" />
+        </property>
+        <property name="articleCount" type="int">
+            <column name="articleCount"/>
+        </property>
+        <!-- lastTopic属性，本类与Topic的一对一 -->
+		<many-to-one name="lastTopic" class="com.web.oa.model.Topic" column="lastTopicId" unique="true"></many-to-one>
+    </class>
+</hibernate-mapping>

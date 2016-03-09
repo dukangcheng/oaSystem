@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-12 17:22:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+   <class name="com.web.oa.model.Topic" table="topic">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<!-- 父类中的属性 -->
+		<property name="title" />
+		<property name="content" type="text" length="5000" />
+		<property name="faceIcon" />
+		<property name="postTime" type="timestamp" />
+        <property name="ipAddress"/>
+	    
+	    <!-- 自己本身具有的属性 -->
+	    <property name="type"/>
+	    <property name="replyCount"/>
+	    <property name="lastUpdateTime" type="timestamp"/>
+        <!-- replies属性  本类与Reply一对多 -->
+        <set name="replies" lazy="false" order-by="id" table="reply">
+          <key column="topicId"/>
+          <one-to-many class="com.web.oa.model.Reply"/>
+        </set>
+        <!-- lastReply 本类与Repl一对一 -->
+        <many-to-one name="lastReply" class="com.web.oa.model.Reply" column="lastReplyId" unique="true"/>
+		<!-- author属性 本类与User多对一 -->
+		<many-to-one name="author" class="com.web.oa.model.User">
+			<column name="authorId" />
+		</many-to-one>
+		<!-- topic属性 本类与Forum多对一 -->
+		<many-to-one name="forum" class="com.web.oa.model.Forum">
+			<column name="forumId" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

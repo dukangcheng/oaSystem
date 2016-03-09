@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-20 15:44:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.web.oa.model.LeaveBill" table="LEAVEBILL">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="content" type="java.lang.String">
+            <column name="CONTENT" />
+        </property>
+        <property name="days" type="java.lang.Integer">
+            <column name="DAYS" />
+        </property>
+        <property name="leaveTime" type="java.util.Date">
+            <column name="LEAVETIME" />
+        </property>
+        <property name="endTime" type="java.util.Date">
+            <column name="ENDTIME" />
+        </property>
+        <many-to-one name="user" class="com.web.oa.model.User" fetch="join">
+            <column name="userId" />
+        </many-to-one>
+        <property name="remark" type="java.lang.String">
+            <column name="REMARK" />
+        </property>
+        <property name="state" type="int">
+            <column name="STATE" />
+        </property>
+    </class>
+</hibernate-mapping>

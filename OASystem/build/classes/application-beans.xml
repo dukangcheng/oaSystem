@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!-- ***********以下是使用hibernate的相关配置****************** -->
+	<!--dao的注入配置 -->
+	<bean id="orgnizationDao" class="com.web.oa.dao.impl.OrgnizationDaoImpl"
+		parent="baseDao"></bean>
+	<bean id="userDao" class="com.web.oa.dao.impl.UserDaoImpl" parent="baseDao"></bean>
+	<bean id="forumDao" class="com.web.oa.dao.impl.ForumDaoImpl"
+		parent="baseDao"></bean>
+	<bean id="roleDao" class="com.web.oa.dao.impl.RoleDaoImpl" parent="baseDao"></bean>
+	<bean id="privilegeDao" class="com.web.oa.dao.impl.PrivilegeDaoImpl"
+		parent="baseDao"></bean>
+	<bean id="topicDao" class="com.web.oa.dao.impl.TopicDaoImpl"
+		parent="baseDao"></bean>
+	<bean id="replyDao" class="com.web.oa.dao.impl.ReplyDaoImpl"
+		parent="baseDao"></bean>
+	<bean id="approveInfoDao" class="com.web.oa.dao.impl.ApproveInfoDaoImpl"
+		parent="baseDao"></bean>
+
+	<!-- 所有的service实现类的基类 将所有的dao以及工作流service全部注入，所有的service实现类都继承这个基类 -->
+	<bean id="baseService" abstract="true" class="com.web.oa.base.UserService">
+		<property name="orgnizationDao" ref="orgnizationDao" />
+		<property name="userDao" ref="userDao" />
+		<property name="roleDao" ref="roleDao" />
+		<property name="privilegeDao" ref="privilegeDao" />
+		<property name="topicDao" ref="topicDao" />
+		<property name="forumDao" ref="forumDao" />
+		<property name="replyDao" ref="replyDao" />
+		<property name="approveInfoDao" ref="approveInfoDao" />
+		<property name="repositoryService" ref="repositoryService" />
+		<property name="historyService" ref="historyService" />
+		<property name="formService" ref="formService" />
+		<property name="taskService" ref="taskService" />
+		<property name="runtimeService" ref="runtimeService" />
+		<property name="identityService" ref="identityService" />
+	</bean>
+
+	<!-- service的注入配置 -->
+	<bean id="orgnizationService" class="com.web.oa.service.impl.OrgnizationServiceImpl"
+		parent="baseService"></bean>
+	<bean id="userService" class="com.web.oa.service.impl.UserServiceImpl"
+		parent="baseService"></bean>
+	<bean id="roleService" class="com.web.oa.service.impl.RoleServiceImpl"
+		parent="baseService"></bean>
+	<bean id="privilegeService" class="com.web.oa.service.impl.PrivilegeServiceImpl"
+		parent="baseService"></bean>
+	<bean id="forumService" class="com.web.oa.service.impl.ForumServiceImpl"
+		parent="baseService"></bean>
+	<bean id="topicService" class="com.web.oa.service.impl.TopicServiceImpl"
+		parent="baseService"></bean>
+	<bean id="replyService" class="com.web.oa.service.impl.ReplyServiceImpl"
+		parent="baseService"></bean>
+	<bean id="workflowService" class="com.web.oa.service.impl.WorkflowServiceImpl"
+		parent="baseService"></bean>
+	<bean id="approveInfoService" class="com.web.oa.service.impl.ApproveInfoServiceImpl"
+		parent="baseService"></bean>
+    <!-- 抽象的action类  注入类所有的service其他的action都从baseAction中继承 -->
+	<bean id="baseAction" class="BaseAction" scope="prototype">
+		<property name="orgnizationService" ref="orgnizationService" />
+		<property name="userService" ref="userService"></property>
+		<property name="roleService" ref="roleService"></property>
+        <property name="privilegeService" ref="privilegeService" />
+        <property name="forumService" ref="forumService"></property>
+        <property name="topicService" ref="topicService" />
+        <property name="replyService" ref="replyService" />
+        <property name="workflowService" ref="workflowService" />
+		<property name="approveInfoService" ref="approveInfoService" />
+	</bean>
+	<!-- action的注入配置 -->
+	<bean id="orgnizationAction" class="com.web.oa.ui.action.OrgnizationAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="userAction" class="com.web.oa.ui.action.UserAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="roleAction" class="com.web.oa.ui.action.RoleAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+
+	<bean id="forumManagerAction" class="com.web.oa.ui.action.ForumManagerAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="homeAction" class="com.web.oa.ui.action.HomeAction"
+		scope="prototype" parent="baseAction"></bean>
+	<bean id="forumAction" class="com.web.oa.ui.action.ForumAction"
+		scope="prototype" parent="baseAction"> 
+	</bean>
+	<bean id="topicAction" class="com.web.oa.ui.action.TopicAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="replyAction" class="com.web.oa.ui.action.ReplyAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="workflowAction" class="com.web.oa.ui.action.WorkflowAction"
+		scope="prototype" parent="baseAction">
+		
+	</bean>
+	<bean id="processDefinitionAction" class="com.web.oa.ui.action.ProcessDefinitionAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="applicationTemplateAction" class="com.web.oa.ui.action.ApplicationTemplateAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<bean id="formAction" class="com.web.oa.ui.action.FormAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+
+
+</beans>

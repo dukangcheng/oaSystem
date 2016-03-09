@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-2 20:00:36 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.web.oa.model.User" table="USER">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="loginName" type="java.lang.String">
+            <column name="loginName" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" />
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATETIME" />
+        </property>
+        <property name="expireTime" type="java.util.Date">
+            <column name="EXPIRETIME" />
+        </property>
+        <property name="gender">
+          <column name="gender"/>
+        </property>
+        <property name="name">
+          <column name="realName"></column>
+        </property>
+        <property name="phoneNum">
+          <column name="phoneNum"/>
+        </property>
+        <property name="email">
+           <column name="email"/>
+        </property>
+        <property name="description">
+          <column name="description"></column>
+        </property>
+        <many-to-one name="org" class="com.web.oa.model.Orgnization" >
+           <column name="orgnizationId"></column>
+        </many-to-one>
+        <set name="roles" table="t_users_roles"  lazy="false">
+           <key><column name="userId"></column></key>
+           <many-to-many class="com.web.oa.model.Role" column="roleId"></many-to-many>
+        </set>
+        <many-to-one name="manager" class="com.web.oa.model.User">
+            <column name="managerId"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

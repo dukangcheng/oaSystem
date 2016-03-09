@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-9 23:47:45 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.web.oa.model.Privilege" table="PRIVILEGE">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="URL" />
+        </property>
+        <set name="roles" table="t_roles_privileges" lazy="false">
+            <key>
+                <column name="privilegeId" />
+            </key>
+            <many-to-many class="com.web.oa.model.Role" column="roleId"/>
+        </set>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="icon" type="java.lang.String">
+            <column name="ICON" />
+        </property>
+        <many-to-one name="parent" class="com.web.oa.model.Privilege">
+            <column name="parentId" />
+        </many-to-one>
+        <set name="children" table="PRIVILEGE" order-by="id" lazy="false">
+            <key>
+                <column name="parentId" />
+            </key>
+            <one-to-many class="com.web.oa.model.Privilege"/>
+        </set>
+    </class>
+</hibernate-mapping>

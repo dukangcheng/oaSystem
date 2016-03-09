@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-12-12 17:22:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.web.oa.model.Reply" table="reply">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="title" />
+		<property name="content" type="text" length="5000" />
+		<property name="faceIcon" />
+		<property name="postTime" type="timestamp"/>
+        <property name="ipAddress"/>
+		<!-- author属性 本类与User多对一 -->
+		<many-to-one name="author" class="com.web.oa.model.User">
+			<column name="authorId" />
+		</many-to-one>
+		<!-- topic属性 本类与Topic多对一 -->
+		<many-to-one name="topic" class="com.web.oa.model.Topic">
+			<column name="topicId"></column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

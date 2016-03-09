@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 配置开发模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- 配饰扩展名为action -->
+	<constant name="struts.action.extension" value="action"></constant>
+	<!-- 配置主题 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<!-- 让OGNL中可以使用静态的方法 -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	
+	
+	<package name="oa" namespace="/" extends="struts-default">
+	    <interceptors>
+	        <!-- 声明一个拦截器 -->
+	        <interceptor name="myStack" class="com.web.oa.interceptor.CheckPrivilegeInterceptor"></interceptor>
+	        <!-- 重写默认的拦截器栈 -->
+	        <interceptor-stack name="defaultStack">
+	         <interceptor-ref name="myStack"/>
+	         <interceptor-ref name="defaultStack"/>
+	        </interceptor-stack>
+	    </interceptors>
+	        <!-- 定义全局的result -->
+	    <global-results>
+	        <result name="loginUI">/WEB-INF/jsp/userAction/loginUI.jsp</result>
+	        <result name="noPrivilegeError">/noPrivilegeError.jsp</result>     
+	    </global-results>
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/userAction/list.jsp</result>
+			<result name="toList" type="redirectAction">userAction_list</result>
+			<result name="saveUI">/WEB-INF/jsp/userAction/saveUI.jsp</result>
+			<result name="logout">/WEB-INF/jsp/userAction/logout.jsp</result>
+			<result name="toIndex" type="redirect">/index.jsp</result>
+		</action>
+		<action name="roleAction_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
+			<result name="toList" type="redirectAction">roleAction_list</result>
+			<result name="addUI">/WEB-INF/jsp/roleAction/addUI.jsp</result>
+			<result name="editUI">/WEB-INF/jsp/roleAction/editUI.jsp</result>
+			<result name="setPrivilegeUI">/WEB-INF/jsp/roleAction/setPrivilegeUI.jsp
+			</result>
+		</action>
+		<action name="orgnizationAction_*" class="orgnizationAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/orgnizationAction/list.jsp</result>
+			<result name="toList" type="redirectAction">orgnizationAction_list?parentId=${parentId}
+			</result>
+			<result name="saveUI">/WEB-INF/jsp/orgnizationAction/saveUI.jsp
+			</result>
+		</action>
+		<action name="forumManagerAction_*" class="forumManagerAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/forumManagerAction/list.jsp</result>
+			<result name="toList" type="redirectAction">forumManagerAction_list.action</result>
+			<result name="saveUI">/WEB-INF/jsp/forumManagerAction/saveUI.jsp</result>
+		</action>
+		<action name="homeAction_*" class="homeAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
+		</action>
+		<action name="forumAction_*" class="forumAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/forumAction/list.jsp</result>
+			<result name="show">/WEB-INF/jsp/forumAction/show.jsp</result>
+		</action>
+		
+		<action name="topicAction_*" class="topicAction" method="{1}">
+			<result name="addUI">/WEB-INF/jsp/topicAction/addUI.jsp</result>
+			<result name="show">/WEB-INF/jsp/topicAction/show.jsp</result>
+			<result name="toShow" type="redirectAction">forumAction_show?id=${forumId}</result>
+		</action>
+		
+		<action name="replyAction_*" class="replyAction" method="{1}">
+ 			<result name="addUI">/WEB-INF/jsp/replyAction/addUI.jsp</result>
+ 			<result name="toShow" type="redirectAction">topicAction_show?id=${topicId}</result>
+		</action>
+		<action name="processDefinitionAction_*" class="processDefinitionAction" method="{1}">
+		    <result name="list">/WEB-INF/jsp/processDefinitionAction/list.jsp</result>
+		    <result name="toList" type="redirectAction">processDefinitionAction_list</result>
+		    <result name="addUI">/WEB-INF/jsp/processDefinitionAction/addUI.jsp</result>
+		</action>
+		<action name="workflowAction_*" class="workflowAction" method="{1}">
+		</action>
+		<action name="formAction_*" class="formAction" method="{1}">
+		    <result name="myTaskList">/WEB-INF/jsp/flowAction/myTaskList.jsp</result>
+		    <result name="submitTaskUI">/WEB-INF/jsp/flowAction/submitUI.jsp</result>
+            <result name="toMyTaskList" type="redirectAction">formAction_myTaskList</result>
+            <result name="myApplicationList">/WEB-INF/jsp/flowAction/myApplicationList.jsp</result>
+            <result name="applicationTemplateList">/WEB-INF/jsp/flowAction/applicationTemplateList.jsp</result>
+            <result name="approveHistory">/WEB-INF/jsp/flowAction/approveHistory.jsp</result>
+		</action>
+		<action name="applicationTemplateAction_*" class="applicationTemplateAction" method="{1}">
+		     <result name="list">/WEB-INF/jsp/applicationTemplateAction/list.jsp</result>
+		     <result name="toList" type="redirectAction">applicationTemplateAction_list</result>
+		     <result name="saveUI">/WEB-INF/jsp/applicationTemplateAction/saveUI.jsp</result>
+		</action>
+	</package>
+</struts>
+
